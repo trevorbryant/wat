@@ -4,6 +4,20 @@
 ## Description
 The Wireless Auditing Tookit (WAT) is currently only an Ansible Playbook to install the wireless auditing tools necessary post Operating System installation.
 
+The WAT Playbook will install and configure the following:
+
+  - Add `127.0.0.1` to `/etc/ansible/hosts` file
+  - Enable `ufw`, configure logging, and allow incoming SSH
+  - Harden SSH config
+  - Dependencies from `apt`
+  - Security tools from `apt`
+  - Security tools from `pip3`
+  - [kismet](https://github.com/kismetwireless/kismet)
+  - [bully](https://github.com/aanarchyy/bully)
+  - [hcxdumptool](https://github.com/ZerBea/hcxdumptool)
+  - [hcxtools](https://github.com/ZerBea/hcxtools)
+  - Download target wordlists 
+
 ## Environment
 This was built and tested on [Ubuntu Server 19.10](https://wiki.ubuntu.com/EoanErmine/ReleaseNotes).
 

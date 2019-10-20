@@ -1,0 +1,277 @@
+- name: hosts
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: insert line 127.0.0.1
+      lineinfile:
+        path: /etc/ansible/hosts
+        line: '127.0.0.1'
+  tags:
+   - hosts
+
+- name: ufw
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: enable ufw, enable logging
+      ufw:
+        state: enabled
+        logging: high
+    - name: allow ssh
+      ufw:
+        state: enabled
+        rule: allow
+        name: openssh
+  tags:
+   - ufw
+
+- name: ssh
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: password login disabled, public key login only, disable root login
+      lineinfile: dest=/etc/ssh/sshd_config regexp='^#?AuthenticationMethods' line='AuthenticationMethods publickey'
+      lineinfile: dest=/etc/ssh/sshd_config regexp='^#?PasswordAuthentication' line='PasswordAuthentication no'
+      lineinfile: dest=/etc/ssh/sshd_config regexp='^#?ChallengeResponseAuthentication' line='ChallengeResponseAuthentication no'
+      lineinfile: dest=/etc/ssh/sshd_config regexp='^#?PubkeyAuthentication' line='PubkeyAuthentication yes'
+      lineinfile: dest=/etc/ssh/sshd_config regexp='^PermitRootLogin' line='PermitRootLogin No'
+  tags:
+    - ssh
+
+- name: deb-utils
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  vars:
+    packages:
+      - python-apt
+      - aptitude
+      - unattended-upgrades
+      - net-tools
+      - network-manager
+      - wireless-tools
+      - build-essential
+      - libpcap-dev
+      - libcurl4-openssl-dev
+      - libssl-dev
+      - zlib1g-dev
+      - whois
+      - tmux
+      - python3-pip
+      - zip
+      - unzip
+      - p7zip
+      - rar
+      - unrar
+  tasks:
+    - name: install deb-utils packages
+      apt:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ packages }}"
+  tags:
+    - deb-utils
+
+- name: deb-rf
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  vars:
+    packages:
+      - aircrack-ng
+      - airgraph-ng
+      - wireshark
+      - wifite
+      - pyrit
+      - pyrit-opencl
+      - wireshark
+      - tshark
+      - cowpatty
+      - tcpflow
+      - reaver
+      - pixiewps
+  tasks:
+    - name: install deb-rf packages
+      apt:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ packages }}"
+  tags:
+    - deb-rf
+
+- name: deb-crack
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  vars:
+    packages:
+      - hashcat
+      - john
+      - hashid
+  tasks:
+    - name: install deb-crack packages
+      apt:
+        name: "{{ item }}"
+        state: latest
+      loop: "{{ packages }}"
+  tags:
+    - deb-crack
+
+- name: pip3
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  vars:
+    packages:
+      - hash-id
+  tasks:
+    - name: install pip3 packages
+      pip:
+        name: "{{ item }}"
+        executable: pip3
+        state: latest
+        extra_args: --upgrade
+      loop: "{{ packages }}"
+  tags:
+    - pip3-sec
+
+- name: kismet
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: add gpg key
+      apt_key:
+        url: https://www.kismetwireless.net/repos/kismet-release.gpg.key
+        state: present
+    - name: add repository
+      apt_repository:
+        repo: 'deb https://www.kismetwireless.net/repos/apt/git/eoan/ eoan main'
+        state: present
+        filename: kismet
+        update_cache: yes
+    - name: create kismet group
+      group:
+        name: kismet
+        state: present
+    - name: add user to group
+      user:
+        name: trevor
+        groups: kismet
+        append: yes
+    - name: install package
+      apt:
+        name: kismet
+        state: latest
+  tags:
+    - kismet
+
+- name: bully
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: download bully
+      git:
+        repo: 'https://github.com/aanarchyy/bully'
+        dest: /opt/bully
+    - name: make and install
+      make:
+        chdir: /opt/bully/src
+        target: install
+  tags:
+    - bully
+
+- name: hcxdumptool
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: download hcxdumptool
+      git:
+        repo: 'https://github.com/ZerBea/hcxdumptool'
+        dest: /opt/hcxdumptool
+    - name: make and install
+      make:
+        chdir: /opt/hcxdumptool
+        target: install
+  tags:
+    - hcxdumptool
+
+- name: hcxtools
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: download hcxtools
+      git:
+        repo: 'https://github.com/ZerBea/hcxtools'
+        dest: /opt/hcxtools
+    - name: make and install
+      make:
+        chdir: /opt/hcxtools
+        target: install
+  tags:
+    - hcxtools
+
+- name: wordlists
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: create dirbuster directory
+      file:
+        path: /usr/share/wordlists/dirbuster
+        state: directory
+    - name: create dirb directory
+      file:
+        path: /usr/share/wordlists/dirb
+        state: directory
+    - name: download wordlists
+      get_url:
+        url: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      with_items:
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/apache-user-enum-1.0.txt',
+            dest: /usr/share/wordlists/dirbuster/apache-user-enum-1.0.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/apache-user-enum-2.0.txt',
+            dest: /usr/share/wordlists/dirbuster/apache-user-enum-2.0.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-1.0.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-1.0.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-2.3-big.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-2.3-big.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-2.3-medium.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-2.3-small.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-lowercase-2.3-big.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-2.3-big.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-lowercase-2.3-medium.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-lowercase-2.3-small.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-small.txt }
+        - { src: 'https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt',
+            dest: /usr/share/wordlists/rockyou.txt }
+        - { src: 'https://www.wirelessvillage.ninja/docs/spy_vs_spy.words',
+            dest: /usr/share/wordlists/spy_vs_spy.words }
+        - { src: 'https://wirelessvillage.ninja/docs/cyberpunk.words',
+            dest: /usr/share/wordlists/cyberpunk.words }
+        - { src: 'https://raw.githubusercontent.com/v0re/dirb/master/wordlists/common.txt',
+            dest: /usr/share/wordlists/dirb/common.txt }
+  tags:
+    - wordlists

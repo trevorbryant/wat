@@ -15,6 +15,7 @@ $ apt update
 $ apt -y install python-apt ansible
 ```
 
+Perform a dry run:
 ```bash
 $ sudo ansible-playbook server.yml --check
 ```

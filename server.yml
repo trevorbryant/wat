@@ -228,6 +228,28 @@
   tags:
     - hcxtools
 
+- name: hashcat-utils
+  hosts: localhost
+  connection: local
+  become: true
+  ignore_errors: true
+  tasks:
+    - name: download hashcat-utils
+      git:
+        repo: 'https://github.com/hashcat/hashcat-utils.git'
+        dest: /opt/hashcat-utils
+    - name: make and install
+      make:
+        chdir: /opt/hashcat-utils/src
+    - copy:
+        src: "{{ item }}"
+        dest: /usr/local/bin/
+        mode: preserve
+      with_fileglob:
+        - /opt/hashcat-utils/src/*.bin
+  tags:
+    - hashcat-utils
+
 - name: wordlists
   hosts: localhost
   connection: local

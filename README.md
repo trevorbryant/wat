@@ -16,6 +16,7 @@ The WAT Playbook will install and configure the following:
   - [bully](https://github.com/aanarchyy/bully)
   - [hcxdumptool](https://github.com/ZerBea/hcxdumptool)
   - [hcxtools](https://github.com/ZerBea/hcxtools)
+  - [hashcat-utils](https://github.com/hashcat/hashcat-utils)
   - Download target wordlists 
 
 ## Environment

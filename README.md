@@ -20,9 +20,11 @@ The WAT Playbook will install and configure the following:
   - Download target wordlists 
 
 ## Environment
-This was built and tested on 
-* [Ubuntu Server 19.10](https://wiki.ubuntu.com/EoanErmine/ReleaseNotes).
-* [Ubuntu Desktop 19.10](https://wiki.ubuntu.com/EoanErmine/ReleaseNotes).
+This was built and tested on:
+* [Ubuntu Server 19.10](https://wiki.ubuntu.com/EoanErmine/ReleaseNotes)
+* [Ubuntu Desktop 19.10](https://wiki.ubuntu.com/EoanErmine/ReleaseNotes)
+
+However, this is anticipated to work on versions 19.04. 18.04/10 will require more applications built from source.
 
 ## Dependencies
 Packages to be installed prior to executing the playbook.

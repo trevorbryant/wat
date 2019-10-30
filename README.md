@@ -34,22 +34,22 @@ $ apt -y install python-apt ansible
 
 Perform a dry run:
 ```bash
-$ sudo ansible-playbook server.yml --check
+$ sudo ansible-playbook wifi.yml --check
 ```
 
 List tasks or tags:
 ```bash
-$ sudo ansible-playbook server.yml --list-tasks
+$ sudo ansible-playbook wifi.yml --list-tasks
 ```
 
 Install or skip specific tasks:
 ```bash
-$ sudo ansible-playbook server.yml --tags "deb-utils,kismet"
-$ sudo ansible-playbook server.yml --skip-tags "deb-sec,bully"
+$ sudo ansible-playbook wifi.yml --tags "deb-utils,kismet"
+$ sudo ansible-playbook wifi.yml --skip-tags "deb-sec,bully"
 ```
 
 Run playbook and all install tools to localhost:
 
 ```bash
-$ sudo ansible-playbook server.yml
+$ sudo ansible-playbook wifi.yml
 ```

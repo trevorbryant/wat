@@ -34,6 +34,8 @@ $ apt update
 $ apt -y install python-apt ansible
 ```
 
+## Examples
+
 Perform a dry run:
 ```bash
 $ sudo ansible-playbook wifi.yml --check

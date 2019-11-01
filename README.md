@@ -46,7 +46,7 @@ List tasks or tags:
 $ sudo ansible-playbook wifi.yml --list-tasks
 ```
 
-Install or skip specific tasks:
+Install or skip specific tags or tasks (useful on desktop versions):
 ```bash
 $ sudo ansible-playbook wifi.yml --tags "deb-utils,kismet"
 $ sudo ansible-playbook wifi.yml --skip-tags "deb-sec,bully"

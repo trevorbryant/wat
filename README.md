@@ -2,7 +2,7 @@
 ![WAT](https://i.imgur.com/IppKJ.jpg "WAT")
 
 ## Description
-The Wireless Auditing Tookit (WAT) is currently only an Ansible Playbook to install the wireless auditing tools necessary post Operating System installation. As the project matures there will be description of the purpose, hardware selections, use cases, et cetera. WAT is intended to be an enjoyable learning project for Radio Frequencies.
+The Wireless Auditing Tookit (WAT) is currently only an Ansible Playbook to install the wireless auditing tools necessary post Operating System installation. As the project matures there will be description of the purpose, hardware selections, use cases, et cetera. WAT is intended to be an enjoyable learning project for Radio Frequencies (RF).
 
 The WAT Playbook will install and configure the following:
 

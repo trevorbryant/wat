@@ -99,6 +99,7 @@
       - tcpflow
       - reaver
       - pixiewps
+      - macchanger
   tasks:
     - name: install deb-rf packages
       apt:

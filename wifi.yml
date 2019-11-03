@@ -71,6 +71,7 @@
       - p7zip
       - rar
       - unrar
+      - locate
   tasks:
     - name: install deb-utils packages
       apt:

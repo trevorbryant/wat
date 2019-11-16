@@ -137,6 +137,7 @@
   vars:
     packages:
       - hash-id
+      - kismetdb
   tasks:
     - name: install pip3 packages
       pip:

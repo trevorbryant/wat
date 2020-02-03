@@ -19,7 +19,7 @@ create_inventory() {
     fi
 
     # create AP inventory
-    /usr/bin/tshark -r $1 -R '(wlan.ssid ~ "WCTF_[0-9]{1,2}")' -2 \
+    /usr/bin/tshark -r $1 -R '(wlan.ssid ~ "WCTF_([0-9]{1,2}|W.*)")' -2 \
     -T fields -E header=n -E separator=, -E quote=d -E occurrence=a \
     -e wlan.ssid -e wlan.bssid \
     | sort -u

@@ -175,9 +175,18 @@
         name: trevor
         groups: kismet
         append: yes
-    - name: install package
+    - name: install packages
       apt:
-        name: kismet
+        pkg:
+         - kismet-core
+         - kismet-capture-linux-bluetooth
+         - kismet-capture-linux-wifi
+         - kismet-capture-nrf-mousejack
+         - python3-kismetcapturertl433
+         - python3-kismetcapturertladsb
+         - python3-kismetcapturertlamr
+         - python3-kismetcapturefreaklabszigbee
+         - kismet-logtools  
         state: latest
   tags:
     - kismet

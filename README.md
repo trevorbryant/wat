@@ -1,5 +1,5 @@
 # Wireless Auditing Tookit (WAT)
-<img align="center" src="https://i.imgur.com/IppKJ.jpg">
+<div style="text-align:center"><img src="https://i.imgur.com/IppKJ.jpg" /></div>
 
 ## Description
 The Wireless Auditing Toolkit (WAT) was created to be an enjoyable learning project for Radio Frequencies (RF). WAT is currently scoped for the [802.11](https://en.wikipedia.org/wiki/IEEE_802.11) protocols. As the project matures so will this description detailing the build (hardware and software), use cases, and usage examples. 

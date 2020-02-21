@@ -1,8 +1,8 @@
 # Wireless Auditing Tookit (WAT)
-![WAT](https://i.imgur.com/IppKJ.jpg "WAT")
+<img align="center" src="https://i.imgur.com/IppKJ.jpg">
 
 ## Description
-The Wireless Auditing Tookit (WAT) is currently only an Ansible Playbook to install the wireless auditing tools necessary post Operating System installation. As the project matures there will be description of the purpose, hardware selections, use cases, et cetera. WAT is intended to be an enjoyable learning project for Radio Frequencies (RF).
+The Wireless Auditing Toolkit (WAT) was created to be an enjoyable learning project for Radio Frequencies (RF). WAT is currently scoped for the [802.11](https://en.wikipedia.org/wiki/IEEE_802.11) protocols. As the project matures so will this description detailing the build (hardware and software), use cases, and usage examples. 
 
 The WAT Playbook will install and configure the following:
 

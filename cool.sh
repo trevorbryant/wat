@@ -32,7 +32,7 @@ extract_handshake() {
 aircrack_handshake() {
 
     # if not exist, create dir
-    [[ -d aircrack ]] || mkdir cracked
+    [[ -d cracked ]] || mkdir cracked
 
     macs=$(cat inventory.csv | cut -d, -f2)
     for mac in $macs
@@ -46,7 +46,7 @@ aircrack_handshake() {
 hashcat_handshake() {
 
    # if not exist, create dir
-   [[ -d hashcat ]] || mkdir cracked
+   [[ -d cracked ]] || mkdir cracked
 
    /usr/bin/hashcat -m 2500 $1 /usr/share/wordlists/cyberpunk.words -o cracked/$1.hashcat --force 2>/dev/null
 
